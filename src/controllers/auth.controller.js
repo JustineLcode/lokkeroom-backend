@@ -1,6 +1,7 @@
 const user = require("../models/user.model")
 const bycrypt = require("bcrypt");
 const APIError = require("../utils/errors");
+const Response = require("../utils/response");
 
 const login = async (req, res) =>{
     console.log(req.body);
@@ -22,23 +23,17 @@ const register = async (req, res) => {
 
     console.log("Hash code :", req.body.password);
 
-    try {
-        const userSave = new user(req.body)
-        await userSave.save()
-            .then((response) => {
-                return res.status(201).json({
-                    succes: true, 
-                    data : response, 
-                    message: "Inscris avec succès"
-                })
-            })
-            .catch((err) => {
-                console.log(err)
-            })
-    } catch (error) {
-        console.log(error);
-        
-    }
+
+    const userSave = new user(req.body)
+    await userSave.save()
+        .then((data) => {
+
+            return new Response(data, "L'enregistrement pris en compte").created(res)
+        })
+        .catch((err) => {
+            throw new APIError("L'utilisateur ne peut être pris en compte !", 400)
+        })
+
 
 }
 

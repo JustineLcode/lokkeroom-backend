@@ -7,7 +7,8 @@ const port = process.env.PORT || 5001
 const router = require("./src/routers")
 
 const errorHandlerMiddleware = require("./src/middelwares/errorHandler")
-const cors = require("cors");
+const cors = require("cors")
+
 
 //Middelwares
 app.use(express.json())
@@ -19,6 +20,7 @@ app.use(cors({
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type"]
 }));
+
 
 app.use("/api", router)
 
