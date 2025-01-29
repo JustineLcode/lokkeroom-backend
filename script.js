@@ -1,5 +1,6 @@
 const mongoose = require("mongoose")
-const messages = require("./messages")
+const message = require("./messages")
+const user = require("./users")
 const uri = "mongodb+srv://<db_username>:<db_password>@nodetest.ogamw.mongodb.net/?retryWrites=true&w=majority&appName=NodeTest"
 
 
@@ -8,20 +9,27 @@ async function connectDB() {
     try {
         await mongoose.connect(uri);
         console.log("Connected to MongoDB");
-        await run(); // Call run() only after connection is established
+        await run();
     } catch (err) {
         console.error("Database connection error:", err.message);
     }
 }
 
-run()
+
 async function run (){
     try{
-    const newMessage = await messages.create({
+        console.log("Connected to databases");
+            const newUser = await user.create({
+                email: "user@test.com",
+                password: "securepassword",
+            });
+        console.log("User created:", newUser);
+
+    const newMessage = await message.create({
         message: "Hello",
         email: "test@test.com",
     })
-    console.log(newMessage)
+    console.log("Message created:", newMessage)
 } catch (e) {
     console.error("Error:", e.message);
 }
