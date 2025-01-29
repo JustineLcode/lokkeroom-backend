@@ -20,4 +20,4 @@ const msgSchema = new mongoose.Schema({
 })
 
 
-module.exports = mongoose.model("Message", msgSchema)
+module.exports = mongoose.model("Message", msgSchema, "messages", { dbName: "Lokker_messagerie" })
