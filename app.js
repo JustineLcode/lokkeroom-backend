@@ -1,10 +1,13 @@
+require("express-async-errors")
 const express = require("express")
 const app = express()
 require("dotenv").config()
 require("./src/db/dbConnection")
 const port = process.env.PORT || 5001
 const router = require("./src/routers")
-const cors = require("cors");
+
+const errorHandlerMiddleware = require("./src/middelwares/errorHandler")
+
 
 //Middelwares
 app.use(express.json())
@@ -25,6 +28,10 @@ app.get("/", (req, res) => {
      message: "Bienvenue"
     })
 })
+
+
+//Capter les erreurs 
+app.use(errorHandlerMiddleware)
 
 
 
