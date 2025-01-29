@@ -7,7 +7,7 @@ const port = process.env.PORT || 5001
 const router = require("./src/routers")
 
 const errorHandlerMiddleware = require("./src/middelwares/errorHandler")
-
+const cors = require("cors");
 
 //Middelwares
 app.use(express.json())
