@@ -1,13 +1,12 @@
 const mongoose = require("mongoose")
 
 const msgSchema = new mongoose.Schema({
-    email: {
-        type: String,
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
         required: true,
-        lowercase: true,
 },
-    message: 
-    {
+    message: {
         type: String,
         required: true,
     },
@@ -15,9 +14,8 @@ const msgSchema = new mongoose.Schema({
         type: Date,
         immutable: true,
         default: () => Date.now(),
-    },
-    updatedAt: Date,
-})
+    }
+}, { timestamps: true });
 
 
-module.exports = mongoose.model("Message", msgSchema, "messages", { dbName: "Lokker_messagerie" })
+module.exports = mongoose.model("Message", msgSchema, "messages")
