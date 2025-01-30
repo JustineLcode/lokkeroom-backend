@@ -2,11 +2,25 @@ const user = require("../models/user.model")
 const bycrypt = require("bcrypt");
 const APIError = require("../utils/errors");
 const Response = require("../utils/response");
+const { createToken } = require("../middelwares/auth");
+
 
 const login = async (req, res) =>{
-    console.log(req.body);
+    const {email, password} = req.body
+
+    const userInfo = await user.findOne({email})
+
+    if (!userInfo)
+        throw new APIError("Email ou mot de passe incorrecte")
+
+    const comparePassword = await bycrypt.compare(password, userInfo.password)
+
+    if(!comparePassword)
+        throw new APIError("Email ou mot de passe incorrecte", 401)
+
+    createToken(userInfo, res)
+
     
-    return res.json(req.body)
 }
 
 const register = async (req, res) => {
