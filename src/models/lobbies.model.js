@@ -9,17 +9,17 @@ const lobbySchema = new mongoose.Schema({
     },
     admin: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "User", // L'admin du lobby (doit être un utilisateur existant)
+        ref: "User", 
         required: true
     },
     users: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: "User" // Liste des utilisateurs appartenant au lobby
+        ref: "User" 
     }],
     messages: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Message" // Messages échangés dans ce lobby
+        ref: "Message" 
     }]
-}, { timestamps: true }); // Gère createdAt et updatedAt automatiquement
+}, { timestamps: true }); 
 
 module.exports = mongoose.model("Lobby", lobbySchema, "lobbies");
