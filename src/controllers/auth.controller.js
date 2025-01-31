@@ -47,11 +47,16 @@ const register = async (req, res) => {
         .catch((err) => {
             throw new APIError("L'utilisateur ne peut être pris en compte !", 400)
         })
+}
 
-
+const me = async (req, res) => {
+    return new Response(req.user).succes(res)
+    
+    
 }
 
 module.exports = {
     login, 
-    register
+    register,
+    me
 }
