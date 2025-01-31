@@ -14,11 +14,14 @@ const cors = require("cors")
 app.use(express.json())
 app.use(express.json({limit: "50mb"}))
 app.use(express.urlencoded({limit: "50mb", extended: true, parameterLimit: 50000}))
+
+
 // CORS Middleware
 app.use(cors({
   origin: "http://localhost:5173", 
   methods: ["GET", "POST", "PUT", "DELETE"],
-  allowedHeaders: ["Content-Type"]
+  allowedHeaders: ["Content-Type"], 
+  credentials: true
 }));
 
 
